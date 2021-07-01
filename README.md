@@ -20,3 +20,10 @@ git clone https://github.com/cxapython/install_frida.git
 cd install_frida
 python3.6 main.py
 ```
+### Thanks
+frida
+https://github.com/frida/frida
+objection
+https://github.com/sensepost/objection
+strongR-frida-android(hluda)
+https://github.com/hluwa/strongR-frida-android
