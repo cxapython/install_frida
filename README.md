@@ -6,19 +6,21 @@ includes:
 - arm
 - x86
 - x86_64
+### Python Version
+>3.6
 
 ### Install dependencies
 ```
 
-python3.6 -m pip install requests
-python3.6 -m pip install tqdm
-python3.6 -m pip install loguru
+python3 -m pip install requests
+python3 -m pip install tqdm
+python3 -m pip install loguru
 ```
 ### How To Run
 ```
 git clone https://github.com/cxapython/install_frida.git
 cd install_frida
-python3.6 main.py
+python3 main.py
 ```
 ### Thanks
 frida
