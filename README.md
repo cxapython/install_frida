@@ -7,7 +7,7 @@ includes:
 - x86
 - x86_64
 ### Python Version
->3.6
+>>3.6
 
 ### Install dependencies
 ```
