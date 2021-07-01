@@ -4,7 +4,6 @@
 # @文件名 : install_frida.py
 # @公众号: Python学习开发
 
-import lzma
 import os
 import shutil
 import subprocess
