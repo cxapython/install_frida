@@ -109,7 +109,7 @@ def get_frida_server():
     """
     file_name = "fs1280.xz"
     cpu_version = get_cpu_version()
-    prefix_url = "https://github.com/frida/frida/releases/download/12.8.0/frida-server-12.8.0-android-{}.xz"
+    prefix_url = "https://github.com/frida/frida/releases/download/12.8.0/frida-server-14.2.2-android-{}.xz"
     if "arm64" in cpu_version:
         url = prefix_url.format("arm64")
     elif "armeabi" in cpu_version:
@@ -141,7 +141,7 @@ def get_cpu_version():
 
 def main():
     get_python_version()
-    install_list = ["frida==12.8.0", "frida-tools==5.3.0", "objection==1.8.4"]
+    install_list = ["frida==14.2.2", "frida-tools==9.1.0", "objection==1.9.6"]
     python_path = sys.executable
     for install_item in install_list:
         logger.info(f"当前安装的是:{install_item.split('==')[0]}")
