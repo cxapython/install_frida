@@ -4,6 +4,7 @@
 # @文件名 : install_frida.py
 # @公众号: Python学习开发
 
+import lzma
 import os
 import shutil
 import subprocess
@@ -16,7 +17,7 @@ from loguru import logger
 from tqdm import tqdm
 
 _temp = os.path.dirname(os.path.abspath(__file__))
-frida_server_path = os.path.join(_temp, "frida_server")
+frida_server_path = os.path.join(_temp, "fs1422")
 adb_path = os.path.join(_temp, "adb")
 
 if not os.path.exists(frida_server_path):
@@ -53,11 +54,10 @@ class IsNotPython3(ValueError):
 
 def adb_operation(fs_file):
     """
-
     :param fs_file:
     :return:
     """
-    logger.info("hluda-server安装到手机")
+    logger.info("frida-server安装到手机")
     try:
         adb_shell = subprocess.run(f'{adb_path} push {fs_file} /data/local/tmp', check=True, shell=True,
                                    stdout=subprocess.PIPE)
@@ -68,12 +68,11 @@ def adb_operation(fs_file):
 
     try:
         adb_shell = subprocess.Popen(f'{adb_path} shell', stdin=subprocess.PIPE, shell=True)
-        adb_shell.communicate(b'su\npkill -f hluda\nchmod 755 /data/local/tmp/hluda\n/data/local/tmp/hluda &\n',
+        adb_shell.communicate(b'su\npkill -f fs1422\nchmod 755 /data/local/tmp/fs1422\n/data/local/tmp/fs1422 &\n',
                               timeout=5)
     except subprocess.TimeoutExpired:
         adb_shell.kill()
         logger.info("启动服务成功")
-        logger.info("在命令行中使用frida-ps -U -ai测试你的环境是否成功了吧")
     except Exception:
         logger.error(f"启动失败,{traceback.format_exc()}")
 
@@ -82,19 +81,34 @@ def get_python_version():
     python_version = sys.version_info
     py3 = six.PY3
     if py3:
-        if python_version < (3, 6):
-            logger.warning("如果出现问题请尝试使用Python3.6以上版本")
+        if python_version > (3, 6) and python_version < (3, 7):
+            logger.info("完美的python3.6环境")
+        else:
+            logger.warning("如果出现问题请尝试使用Python3.6")
     else:
         raise IsNotPython3
 
-def get_hluda_server():
+
+def decompress_file(input_xz_file):
+    logger.info("开始解压fs1422.xz文件")
+    output_file = input_xz_file.replace(".xz", "")
+    try:
+        with lzma.open(input_xz_file, 'rb') as _input:
+            with open(output_file, 'wb') as output:
+                shutil.copyfileobj(_input, output)
+    except Exception:
+        output_file = ""
+    return output_file
+
+
+def get_frida_server():
     """
     自动辨别cpu架构类型
     :return:
     """
-    file_name="frida14"
+    file_name = "fs1422.xz"
     cpu_version = get_cpu_version()
-    prefix_url = "https://github.com/frida/frida/releases/download/14.2.2/frida-server-14.2.2-android-{}"
+    prefix_url = "https://github.com/frida/frida/releases/download/14.2.2/frida-server-14.2.2-android-{}.xz"
     if "arm64" in cpu_version:
         url = prefix_url.format("arm64")
     elif "armeabi" in cpu_version:
@@ -106,9 +120,13 @@ def get_hluda_server():
     logger.info(f"开始下载frida-server 版本--{cpu_version}")
 
     download_from_url(url, dst=frida_full_path)
-    logger.info(f"下载frida-server 成功！,文件位置:{frida_full_path}")
+    logger.info(f"下载frida-server成功！,文件位置:{frida_full_path}")
+    out_file_path = decompress_file(frida_full_path)
+    if out_file_path:
+        logger.info("解压文件成功")
 
-    adb_operation(frida_full_path)
+    adb_operation(out_file_path)
+
 
 def get_cpu_version():
     command = f"{adb_path} shell getprop ro.product.cpu.abi"
@@ -135,7 +153,7 @@ def main():
             logger.info(result)
         except subprocess.CalledProcessError:
             raise ValueError(f"{install_item},安装失败")
-    get_hluda_server()
+    get_frida_server()
 
 
 if __name__ == '__main__':
