@@ -12,9 +12,7 @@ includes:
 ### Install dependencies
 ```
 
-python3 -m pip install requests
-python3 -m pip install tqdm
-python3 -m pip install loguru
+ python3.6 -m pip install six requests tqdm loguru  -i https://mirrors.ustc.edu.cn/pypi/web/simple
 ```
 ### How To Run
 ```
