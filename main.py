@@ -94,7 +94,7 @@ def get_hluda_server():
     """
     file_name="hluda"
     cpu_version = get_cpu_version()
-    prefix_url = "https://github.com/anjia0532/strongR-frida-android/releases/download/14.2.10/hluda-server-14.2.10-android-{}"
+    prefix_url = "https://github.com/frida/frida/releases/download/14.2.2/frida-server-14.2.2-android-{}"
     if "arm64" in cpu_version:
         url = prefix_url.format("arm64")
     elif "armeabi" in cpu_version:
