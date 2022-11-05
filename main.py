@@ -92,7 +92,7 @@ def get_hluda_server():
     自动辨别cpu架构类型
     :return:
     """
-    file_name="hluda"
+    file_name="frida14"
     cpu_version = get_cpu_version()
     prefix_url = "https://github.com/frida/frida/releases/download/14.2.2/frida-server-14.2.2-android-{}"
     if "arm64" in cpu_version:
@@ -103,10 +103,10 @@ def get_hluda_server():
         url = prefix_url.format(cpu_version)
 
     frida_full_path = os.path.join(frida_server_path, file_name)
-    logger.info(f"开始下载hluda-server 版本--{cpu_version}")
+    logger.info(f"开始下载frida-server 版本--{cpu_version}")
 
     download_from_url(url, dst=frida_full_path)
-    logger.info(f"下载hluda-server 成功！,文件位置:{frida_full_path}")
+    logger.info(f"下载frida-server 成功！,文件位置:{frida_full_path}")
 
     adb_operation(frida_full_path)
 
