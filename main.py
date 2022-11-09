@@ -17,7 +17,7 @@ from loguru import logger
 from tqdm import tqdm
 
 _temp = os.path.dirname(os.path.abspath(__file__))
-frida_server_path = os.path.join(_temp, "fs1422")
+frida_server_path = os.path.join(_temp, "fs14212")
 adb_path = os.path.join(_temp, "adb")
 
 if not os.path.exists(frida_server_path):
@@ -68,7 +68,7 @@ def adb_operation(fs_file):
 
     try:
         adb_shell = subprocess.Popen(f'{adb_path} shell', stdin=subprocess.PIPE, shell=True)
-        adb_shell.communicate(b'su\npkill -f fs1422\nchmod 755 /data/local/tmp/fs1422\n/data/local/tmp/fs1422 &\n',
+        adb_shell.communicate(b'su\npkill -f fs14212\nchmod 755 /data/local/tmp/fs14212\n/data/local/tmp/fs14212 &\n',
                               timeout=5)
     except subprocess.TimeoutExpired:
         adb_shell.kill()
@@ -90,7 +90,7 @@ def get_python_version():
 
 
 def decompress_file(input_xz_file):
-    logger.info("开始解压fs1422.xz文件")
+    logger.info("开始解压fs14212.xz文件")
     output_file = input_xz_file.replace(".xz", "")
     try:
         with lzma.open(input_xz_file, 'rb') as _input:
@@ -106,7 +106,7 @@ def get_frida_server():
     自动辨别cpu架构类型
     :return:
     """
-    file_name = "fs1422.xz"
+    file_name = "fs14212.xz"
     cpu_version = get_cpu_version()
     prefix_url = "https://github.com/frida/frida/releases/download/14.2.2/frida-server-14.2.2-android-{}.xz"
     if "arm64" in cpu_version:
