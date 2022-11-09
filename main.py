@@ -140,7 +140,7 @@ def get_cpu_version():
 
 def main():
     get_python_version()
-    install_list = ["frida==14.2.2", "frida-tools==9.1.0", "objection==1.9.6"]
+    install_list = ["frida==14.2.12", "frida-tools==9.1.0", "objection==1.9.6"]
     python_path = sys.executable
     for install_item in install_list:
         logger.info(f"当前安装的是:{install_item.split('==')[0]}")
