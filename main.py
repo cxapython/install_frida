@@ -108,7 +108,7 @@ def get_frida_server():
     """
     file_name = "fs14212.xz"
     cpu_version = get_cpu_version()
-    prefix_url = "https://github.com/frida/frida/releases/download/14.2.2/frida-server-14.2.2-android-{}.xz"
+    prefix_url = "https://github.com/frida/frida/releases/download/14.2.12/frida-server-14.2.12-android-{}.xz"
     if "arm64" in cpu_version:
         url = prefix_url.format("arm64")
     elif "armeabi" in cpu_version:
